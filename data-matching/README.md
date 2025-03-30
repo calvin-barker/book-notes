@@ -42,6 +42,29 @@ Then the robot say:
 
 So, it's like a game of matching with fuzzy rules, and the robot uses match to help you decide if two things are the same, different, or need a closer look.
 
+### Why does data matching (entity resolution) matter?
+
+Without it, my data is lying to me.
+
+Organizations collect information from many systems (CRM, transactions, web behavior, support logs, etc.), but none of it matters if we can't say, *"These two records actuall refer to the same real-world entity."*
+
+
+Entity resolution is the foundation for a unified, accurate, and actionable view of people, businesses, and events.
+
+### What can you do with it?
+
+Some examples:
+
+1. *Customer 360 & Personalization*: build complete profiles across fragmented systems; power targeted marketing, product recommendations, and retention strategies; improve support and customer satisfaction with context-rich interactions.
+2. *Audience building and segmentation*: enrich targeting for ad platforms; group users by behavior, demographics, or lifecycle stage; avoid over/under-targeting the same individual due to duplicate IDs.
+3. *Fraud detection & compliance*: identify when someone is attempting to open multiple accounts; detect collusion, duplicate vendors, or false identites; ensure accurate KYC/AML processes.
+4. *Data deduplication & cost savings*: reduce storage, processing, and licensing costs by avoiding duplicate records, clean up messing warehouses.
+5. *Measurement & attribution*: resolve ad impressions, clicks, and purchases to the same person for accurate ROAS; unify sessions, devices, or offline events across a customer journey.
+
+#### Economic implications
+- Better targeting means more revenue. Better resolution means that every targeting impression or campaign becomes more efficient and relevent.
+- Less duplication means lower costs of data storage.
+- Better activation of data means better outcomes for any industry where identity is valuable (ad tech, marketplaces, finance, retail, healthcare, etc.)
 
 ## Preface
 
