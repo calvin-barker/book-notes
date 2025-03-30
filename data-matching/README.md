@@ -86,4 +86,9 @@ How quickly does the quadratic complexity become a problem? Very quickly. Over 1
 | 100,000               | 4,999,950,000          | ~5.8 days                       |
 | 1,000,000             | 499,999,500,000        | ~1.6 years                      |
 
+## Chapter 1: Introduction
+
+### 1.1 Aims and Challenges of Data Matching
+
+
 
