@@ -90,5 +90,89 @@ How quickly does the quadratic complexity become a problem? Very quickly. Over 1
 
 ### 1.1 Aims and Challenges of Data Matching
 
+*How would I explain data warehousing to a five-year-old?*
 
+Imagine you have a giant toy box where you keep all your toys (LEGOs, stuffed animals, race cars, puzzles) all in one place, sorted, and organized, so you can find any toy really quickly when you want to play.
+
+Now image that your toys come from different places (home, daycare, friends, grandma). You bring them all into this big toy box. You put labels on them and sort them into neat bins. Now, when you want to play with something, you know exactly where to look.
+
+The big box is the data waarehouse.
+
+*How would I explain data mining to a five-year-old?*
+
+Now, imagine that your big toy box is full of toys that you've been collecting for a very long time.
+
+You want to figure out what toys you play with the most, which ones are your favorites, if you have any of the same kind, if there's a new game you could make by combining them, etc.
+
+Data mining is like being a detective in your toy box. You're looking for hidden patterns and cool surprises that you didn't notice before.
+
+It's not about getting new toys -- it's about discovering cool stuff from the ones you already have.
+
+Three tasks of integrating data:
+1. Schema matching: identifying database tables, attributes, and conceptual structures from disparate databases that contain data corresponding to the same type of information 
+2. Data matching: identifying and matching individual records from disparate databases referring to the same real-world entity
+3. Data fusion: the process of merging pairs of groups of records that have been classified as matches into a clean and consistent record that represents an indentity.
+
+*How would I explain an ontology to a five-year-old?*
+
+Imagine you have a giant picture book that shows all the things in your world (animals, toys, people, food) and tells you how they're connected.
+
+- It says a *dog* is an *animal*
+- A *teddy bear* is a toy
+- A *banana* is a *fruit*, and a *fruit* can be a *food*.
+- Your *teacher* is a *person* who works at a *school*.
+
+The picture book helps you understand:
+- What things are
+- What they do
+- How they relate to each other
+
+It's a way of organizing knowledge so everything has a place and so that we know how things are connected and different from one another.
+
+#### 1.1.1 Lack of Unique Entity Identifiers and Data Quality
+
+Examples of entity identifiers:
+- Social Security Numbers (SSN)
+- Taxpayer Identification Number (TIN)
+- Passport Number
+- Driver's License Number
+- Unique Patient Identifier (UPI)
+- Employee ID
+- Student ID
+- *Voter Registration Number*
+- Insurance Policy Number
+- Employer Identification Number (EIN)
+- Universial Product Code (UPC)
+- ISBN for books
+- Vehicle Identification Number (VIN)
+- Email address
+- IP address
+- Device ID
+- Cookie ID
+- Property Parcel Number (PPN)
+
+#### 1.1.2 Computational Complexity
+
+Make identity resolution more efficient with blocking, cheap similarity grouping, and parallelized scoring, backed by probabilistic or ML-drivien filtering.
+
+- Blocking: group records by a shared feature (zip, email domain, first letter of name) and compare only within blocks
+- Canopy clustering: use a cheap similarity metric (Jaccard) to form overlapping clusters/canopies, then only compare within clusters with the more expensive logic.
+- Sorted neighborhood: sort the dataset on one or more keys (name + DOB) and then slide a fixed-size window over the records and compare only within the window.
+- Pre-filtering with Heuristics: before fuzzy matching, filter reacord pairs that don't match on hgih-confidence features (ZIP + DOB) and are clearly disjoint on key fields (countries) to remove a big chunk of non-matches.
+- Parallelization/distributed compute with something like Spark (Spark NLP/Dedupe workflows)
+- Pairwise similarity pre-scoring: lightweight ML model that outputs a probability of a match: filter out low-confidence pairs, prioritize review queues, feed into Fellegi-Sunter-style scoring
+
+#### 1.1.3 Lack of Training Data Containing the True Match Status
+
+There are no real gold standards or ground truths for people. Some examples:
+- Febrl (freely extensible biomedical record linkage): commonly used in ER research
+- Restaurant/census datasets
+- Walmart-Amazon product matching
+- Mockaroo/Faker-generated datasets
+- ERBench
+
+#### 1.1.4 Privacy and Confidentiality
+
+
+Zero-relationship encoding is used in privacy-preserving record linkage (PPRL) to prevent attackers from reverse-engineering or linking records based on structural clues. It ensures that encoded records don't expose clues about how they relate to one another.
 
