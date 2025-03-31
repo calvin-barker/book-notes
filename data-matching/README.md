@@ -271,4 +271,16 @@ It appears to be "moderately" saturated: see Prisync, Pricefy, Price Compare, Pr
 
 #### 1.4.8 Social Sciences and Geneaology
 
+*What kind of data can we license from Ancestry.com?*
+
+Uncertain. They have information about family trees, DNA results, etc. We'd need to contact them. (privacy statement doesn't explicitly mention third-party licensing)
+
+*How can genealogicol data be used in identity resolution?*
+
+Linking across generations can disambiguate John Smith Jr. And J. Smith III; using known information about relatives can help triangulate who they are (very useful in fraud detection); can avoid using SSNs or emails. Cross-dataset reconciliation (hospital records, etc); household graphs.
+
 ### 1.5 Further Reading
+
+William E. Winkler (U.S. Census Bureau) appears to be the OG. Advanced the classic Fellegi-Sunter model, developed blocking techniques and string comparator logic, deep focus on quality, widely published.
+
+RIP 2022 https://en.wikipedia.org/wiki/William_E._Winkler
