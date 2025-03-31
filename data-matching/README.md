@@ -173,6 +173,102 @@ There are no real gold standards or ground truths for people. Some examples:
 
 #### 1.1.4 Privacy and Confidentiality
 
-
 Zero-relationship encoding is used in privacy-preserving record linkage (PPRL) to prevent attackers from reverse-engineering or linking records based on structural clues. It ensures that encoded records don't expose clues about how they relate to one another.
 
+### 1.2 Data Integration and Link Analysis
+
+#### How would I explain "semantic and syntactic similarities" to a five-year-old?
+
+Imagine you have two sentences or two words.
+
+If they look or sound almost the same, that's called *syntactic similarity.* For example, if you see "dog" and "dogs," they look almost the same.
+
+But, if they *mean* the same thing, even if they don't look alike, that's called *semantic similarity.* For example, "puppy" and "dog" look different, but they mean something very close.
+
+Syntactic: about how things look.
+
+Semantic: about what things mean.
+
+#### How would I create a simple, accessible definition of "link analysis?"
+
+Link analysis is the process of looking at how things are connected to each other, like dots and lines in a web, to find patters, relationships, or important pieces in a network.
+
+It's like looking at a map of who talks to whom, or which websites link to each other, so you can find out who's most important, who's connected, or who's part of the same group.
+
+#### How can LLMs accelerate schema matching?
+
+They can automate processing messy field names, using context to piece together descriptions, table names, and sample data, reason over natural language (birth date, DOB, date-of-birth), learning from examples, automate manual mapping, and work flexibly across domains and languages.
+
+### 1.3 A Short History of Data Matching
+
+#### How is Dunn's dream of a book of life looking nowadays?
+
+ChatGPT says it's becoming real, but it's distributed across tons and tons of databases including: genomics, wearable devices and smartphone tracking, medical records and claims, social graphs and transactional data (browsing, purchases, messages), etc. LLMs and identity graphs can help index the book of life with automated context gathering across all of them, but the data remains highly fragmented across different silos, privacy remains a serious concerns, and the comprehensiveness of much of life (emotions, relationships, one-off events) remains hard to digitize meaningfully.
+
+### 1.4 Example Application Areas
+
+#### 1.4.1 National Census
+
+Given legal constraints in some countries around data retention, how can we overcome these challenges to create meaningful longitudinal data sets?
+
+We can transform or summarize data instead of storing raw personal details. Techniques like pseudonymization, federated learning, or synthetic data also help retain value without holding onto sensitive records. The key would be to preserve insight and not identity.
+
+What granularity of data can we get from the US Census Bureau?
+
+Nation, region, state county; census track for neighborhood (1200-8000); block group (600-3000); census block (~40), but very limited variables and heavily privacy-protected -- population counts by total pop, sex/age, race/origin, household and housing units, group quarters population; public use microdata areas (PUMAs). Checkout SF1 by census.
+
+#### 1.4.2 The Health Sector
+
+What is the "best-practice protocol of separating the personal identifiers required for matching from the medical information needed for research studies" developed in Western Australia?
+
+It's called the "separation principle" and is tied to WA's data linkage system (WADLS). Roles are clearly separated: data linkage unit (WA Data Linkage Branch handles only personal identifiers), researcher receive de-identified datasets with medical or research variables, the unit linking data never sees health content, and the researchers never see the direct identifiers.
+
+Each individual is assigned a unique linkage key after records are matched. Linkage-keys are often project-specific and can't be reused across studies to re-identify people. There's strict governance and ethical oversight with auditing and logging.
+
+#### 1.4.3 National Security
+
+What's the current statuses of the total information awareness (TIA) and multistate anti-terrorism information exchange system (MATRIX) initiatives?
+
+They were both discontinued in the mid-2000s. TIA was revealed in 2002, and Congress cut its funding in 2003. MATRIX drew concerns around privacy and was terminated in 2005.
+
+There were about 500,000 people on US terror watchlists in 2008. Is this still the case? How effective is this?
+
+As of 2023, it's up to about 2,000,000 (Terrorist Screening Database, TSDB). Effectiveness is a matter of debate. There haven't been major terror attacks on US soil, but the size of the data make it hard in magaing and utilizing data effectively.
+
+#### 1.4.4 Crime and Fraud Detection and Prevention
+
+*How do we define "synthetic identities?"*
+
+These are fake identities created by combining real and fictious information, often to impersonate a plausible person who doesn't actually exist.
+
+*If individuals can deliberately modify their details because they don't want to be identified, how can this impact targeted advertising, and how can advertisers mitigate this?*
+
+This disrupts identity resolution and directly weakens targeted advertising, leading to fragmented user identities (one person looking like multiple different users), reduced ad personalization quality, reduces attribution models, wasted ad spend (i.e. targeting new instead of existing user) loss of meaasurement precision, etc.
+
+Mitigations: adopt probabilisitc identity resolution (ML), leverage first-party data (loyalty programs, login systems), use privacy-compliant identity graphs (e.g. LiveRamp, Neustar) to link fragmented profiles into a coherent view, focus on contextual targeting instead of individual targeting (focus on what the individual is doing).
+
+#### 1.4.5 Business Mailing Lists
+
+*How effective are business mailing lists compared to online ads?*
+
+Online ads seem to offer lower CPAs at scale, but mailing lists can outperform in niche, high-value B2B use cases.
+
+#### 1.4.6 Bibliographic Databases
+
+*How would I describe collective entity resolution to a five-year-old?*
+
+Imagine you have a big box of LEGO people, and some of them look really similar, like they might be the same person wearing a different hat. You try to figure out who is who. But instead of looking at just one piece at a time, you look at all their friends, where they live, and what they're doing. That way, you can tell if two LEGO people are actually the same person in diguise, because they're always hanging out with the same friends or going to the same places.
+
+*This seems like household resolution might be pretty useful, even if I'm not targeting the household. Is this correct?*
+
+Yes, collective entity resolution helps by looking at relationships between people, like shared addresses or behaviors, to improve identity matching. Even if you're targeting individuals, it can reveal household connections, reduce duplicates, and uncover shared intent. This leads to smarter targeting, better attribution, and lower acquisition costs. (I wonder if household size matters.)
+
+#### 1.4.7 Online Shopping
+
+*How saturated is the Shopify app space for price tracking/comparison apps?*
+
+It appears to be "moderately" saturated: see Prisync, Pricefy, Price Compare, PriceMole, GJ Price Tracker.
+
+#### 1.4.8 Social Sciences and Geneaology
+
+### 1.5 Further Reading
