@@ -348,3 +348,101 @@ It's called "hidden" because you can't observe the real thing, and you can only 
 *Is there a particular reason to cast to lowercase instead of uppercase?*
 
 Industry convention, easier to read, preserves semantics, smoother regex. Uppercase is common in formal identiers or legacy systems.
+
+### 2.3 Indexing
+
+*Is there a standard system/protocol I can follow for auditing or reverse-engineering an existing identity resolution flow?*
+
+There doesn't seem to be a single universal protocol. ChatGPT has some ideas I'll revisit later.
+
+*How does Soundex work?*
+
+1. Keep the first letter of the name (Smith -> S)
+2. Convert the remaining letters to digits based on a sound-alike table.
+3. Remove duplicates if they're next to eachother.
+4. Remove all 0s (vowels and ignored letters)
+5. Pad the results with 0s at the end or truncate it to exactly four characters.
+
+Useful for name matching, census records, or legacy systems, deduplication of customer records, basic fuzzy matching where full NLP is overkill. Works best for english names, and doesn't distinguish well between some similar-sounding names (Gail == Kyle)
+
+| Letters                     | Code |
+|----------------------------|------|
+| B, F, P, V                 | 1    |
+| C, G, J, K, Q, S, X, Z     | 2    |
+| D, T                       | 3    |
+| L                          | 4    |
+| M, N                       | 5    |
+| R                          | 6    |
+| A, E, I, O, U, H, W, Y     | 0 (ignored) |
+
+
+Examples 
+
+| Name      | Soundex |
+|-----------|---------|
+| Smith     | S530    |
+| Smyth     | S530    |
+| Robert    | R163    |
+| Rupert    | R163    |
+| Ashcraft  | A261    |
+| Ashcroft  | A261    |
+
+*What are popular indexing techniques besides blocking or Soundex?*
+
+| Technique                  | Description |
+|---------------------------|-------------|
+| **Sorted Neighborhood**   | Sorts records by a key (e.g., last name) and compares only within a sliding window to catch near-matches. |
+| **Canopy Clustering**     | Uses a cheap similarity metric to create overlapping groups ("canopies") where expensive comparisons are done only within the same canopy. |
+| **Locality-Sensitive Hashing (LSH)** | Hashes similar records into the same bucket using approximate similarity measures (e.g., Jaccard, cosine), enabling fast fuzzy matching. |
+| **Trie-Based Indexing**   | Uses prefix trees to support efficient lookups, especially useful for partial name/code matching or autocomplete scenarios. |
+| **k-d Trees / Ball Trees**| Indexes multi-dimensional numerical data (like coordinates or embeddings) for fast nearest-neighbor search. |
+| **Inverted Index**        | Maps each token or term to the list of records that contain it; widely used in search engines and free-text matching. |
+| **Embedding + Vector Search** | Transforms text fields into vector embeddings (e.g., via TF-IDF, BERT) and uses approximate nearest-neighbor search for semantic matching. |
+| **Phonetic Encoding (e.g., Metaphone, NYSIIS)** | Converts names into phonetic codes that group together similar-sounding variants; more accurate than Soundex in many cases. |
+
+### 2.4 Record Pair Comparison
+
+*What are examples of popular record pair comparison functions?*
+
+- Levenshtein Distance: single-character edits
+- Jaro-Wingler: Weigh similarity based on matching characters, boosting matches with common prefixes.
+- Jaccard Similarity: compares sets of tokens by Intersection over Union
+- Absolute difference (for numbers)
+- Normalized difference: (A-B)/max(A, B)
+- Exact match for categorical data
+- Set overlap
+- Frequency-aware scoring
+
+### 2.5 Record Pair Classification
+
+*With the idea of clerical review and active learning, how might introducing something like Amazon Mechnical Turk help a large identity resolution problem on the order of billions?*
+
+This could help with thousands of workers at scale; could create a verified labeled dataset. Implementation idea: keep tasks simple and structured, provide clear instructions and example matches/non-matches. Have 2-3 reviewers label the same pair using consensus or majority vote to improve reliability, use qualification tests to ensure that reviewers understand domain-specific nuances (variants, geographic info), use model uncertainty to prioritize pairs, compensate $0.02-$0.10 per task.
+
+*How would this compare to non-active learning with binary match/not-match classifications? Is there any research on this?*
+
+Active learning outperforms passive learning in binary classification tasks. AL can achieve higher accuracy with fewer labeled instances by actively selecting the most informative data points for labeling.
+
+https://link.springer.com/article/10.1007/s11390-020-9487-4
+
+*What are relevant active learning strategies?*
+- Uncertainty sampling (lowest confidences, simple, most effective)
+- Margin sampling (smallest difference between top two class probabilities, works for multi-class)
+- Entropy sampling (sample highest Shannon entropy across prediced class probabilities)
+- Query by Committee (multiple models, most disagreement)
+- Expected model change (computationally expensive, instance that would most change the model's parameters if known)
+- Expected error reduction (pick the instance that would most reduce the model's expected future error)
+- Density-Weighted Methods (combine uncertainty with how representative the instance is in the space)
+
+### 2.6 Evaluation of Matching Quality and Complexity
+
+*What's a mnemonic for remembering the difference between precision and recall?*
+
+Precision is about being right when you say "yes."
+
+Precision = Sniper -> A sniper (ideally) only pulls the trigger when they're sure.
+
+Recall = Scout -> The scout's job is to find every target, even if they make some mistakes. 
+> "Of all the real matches, how many did I actually find?"
+
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
