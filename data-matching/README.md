@@ -284,3 +284,67 @@ Linking across generations can disambiguate John Smith Jr. And J. Smith III; usi
 William E. Winkler (U.S. Census Bureau) appears to be the OG. Advanced the classic Fellegi-Sunter model, developed blocking techniques and string comparator logic, deep focus on quality, widely published.
 
 RIP 2022 https://en.wikipedia.org/wiki/William_E._Winkler
+
+## Chapter 2: The Data Matching Process
+
+### 2.1 Overview
+
+Given the steps of data pre-processing, indexing, record pair comparisons, and classification, it seems that data pre-processing is most relevant to data engineering rather the other entity resolution steps. Is this a fair assessment?
+
+It's fair and accurate since the core activities revolve around standardizing formats, handling encoding issues, tokenization, ETL/ELT, etc. The other options are more related to data scientists and ML engineers.
+
+#### 2.1.1 A Small Data Matching Example
+
+I'm having a memory of a data engineering pattern published by a consulting firm (McKinsey maybe?) involving 7-8 tiers of data storage. Something like raw, enriched, standardized, etc. I can't remember. I read about it in 2019.
+
+ChatGPT can't find it. It keeps pushing me towards the Medallion archtecture.
+
+### 2.2 Data Pre-Processing
+
+*What automated data cleaning and standardization services are on the market?*
+
+IBM, Oracle, SA, Experian, SAS, Informatica, Alteryx, etc.
+
+*How would I go about auditing everything myself?*
+
+I would need to audit by starting backwards from the identity graph builder and track the data back to the source. Once I have a lineage, I can go deeper into the technical details and get a better handle on it.
+
+*Besides nickname and common misspelling tables, what are other common look-up tables that contain variations or expansions?*
+
+- Acronym <> Full Form Tables (DOB, Date of Birth)
+- Abbreviation Tables
+- Synonyms (doctor <> physician)
+- Phonetic variations for names
+- Gender-specific name equivalents (John and Jane)
+- Language/Cultural variants (James <> Diego)
+- Corporate aliases (Alphabet <> Google)
+- Title/Role normalization (VP, V.P., Vice President)
+- Country/State/City code expansions
+- Product/UPC/GTIN Crosswalk tables
+
+*How efficiently could LLMs parse/split data (like an address column value) into its parts (street, number, zip, etc.) at scale? For 100,000 records? 1,000,000? 10,000,000? 1,000,000,000?*
+
+Essentiallly not feasible above 100k records, according to ChatGPT. Although, self-hosting the model would become much more achievable with enough hardware.
+
+| Model Size         | Hardware     | Approx. Throughput (QPS) | Time to Process 1M Records |
+|--------------------|--------------|---------------------------|-----------------------------|
+| 7B (quantized)     | 1× A100       | 20–50 qps                 | ~5–8 hours                  |
+| 13B                | 2× A100       | 10–20 qps                 | ~12–18 hours                |
+| DistilBERT (light) | CPU or GPU    | 200+ qps                  | <1 hour                     |
+
+
+*How would you explain a Markov model to a five-year-old?*
+
+Imagine you're playing a game where you move from one colored square to another. You don't remember where you were before -- only the square you're standing on matters. Each square tells you which color you might land on next, and how likely it is. That's a Markov model: it helps guess what comes next, using only what's happening now.
+
+Example: If you're on a red square, there's a good chance you'll go to a blue one next.
+
+*How would you explain a hidden Markov model to a five-year-old?*
+
+Now, imagine you're playing a game where a friend is hopping between colored squares, but you can't see the colors they're on. Instead, you only hear the sounds they make. Each sound gives you a clear about what color square they might be on. Ahidden markov model helps you guess which color they're standing on just by listening to the sounds.
+
+It's called "hidden" because you can't observe the real thing, and you can only see the clues (sounds). The model helps you guess the hidden part using the clues and some smart rules about how the hopping works.
+
+*Is there a particular reason to cast to lowercase instead of uppercase?*
+
+Industry convention, easier to read, preserves semantics, smoother regex. Uppercase is common in formal identiers or legacy systems.
