@@ -13,3 +13,19 @@ Things they can be used for:
 *How often do people inaccurately write their address ("brooklyn" vs "new york city" vs "new york")*
 
 The USPS mostly relies on ZIP to deal with it. It's complex, but using the correct borough or neighborhood name is generally recommended to ensure timely and accurate delivery.
+
+Seems that ZIP is the ideal.
+
+### 3.3 Types and Sources of Variations and Errors in Names
+
+*If I could only match on hashed values of names, how can I deal with the typographical errors that don't affect phonetical structure of a name? (meyer vs meier; christina vs kristina)*
+
+- Changing the pre-hashing strategy (like Soundex)
+- pre-hashing canonicalization
+- approximate hashing (SimHash, MinHash, Bloom Filters)
+- Rainbow tables (mapping variant to Soundex)
+
+*Is there a computationally feasible way to match on edit distance=1 errors with the hashed values?*
+
+ChatGPT says not with SHA-256 or MD5.
+
