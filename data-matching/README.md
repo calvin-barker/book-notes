@@ -446,3 +446,35 @@ Recall = Scout -> The scout's job is to find every target, even if they make som
 > "Of all the real matches, how many did I actually find?"
 
 F1 = 2 * (Precision * Recall) / (Precision + Recall)
+
+## Chapter 3: Data Pre-Processing
+
+### 3.1 Data Quality Issues Relevant to Data Matching
+
+*As I'm thinkinking through relevant metrics related to data quality in pre-processing, what metrics would be relevant to accuracy (with and without a gold standard), completeness, consistency (when used for matching, also define this), timeliness, accessibility (meaning that there's enouh data in the form of attributes for matching), and believability?*
+
+- Accuracy
+    - How correct are field values?
+    - With gold standard: field-level precision/recall, edit distance to gold, % exact match to known truth
+    - Without gold standard: % valid values (ZIP codes in known set), distribution drift (vs known clean set), outlier detection (dates in future)
+- Completeness
+    - Are required fields populated?
+    - With: % records with all required fields, match coverage across gold set
+    - Without: % non-null or non-empty, % sparsity by column, % of records meeting minimum attribute count
+- Consistency
+    - Are values logically and format-wise consistent within and across datasets?
+    - With: % logically consistent matches in gold (DOB across sources)
+    - Without: % matching formats, % internally consistent values, % of values that contradict inferred rules
+- Timeliness
+    - Are the values current or relevant for the time the record is used?
+    - With: timestamp lag vs gold reference time, % outdated matches in gold
+    - Without: % records updated in last N days, % of stale values
+- Accessibility
+    - Are enough fields available to enable a confident match decision?
+    - With: match decision coverage across full attribute set, % gold matches resolved with available fields
+    - Without: % of records with at least N high-confidence fields, % of records that hit field-based blocking keys, entropy/variablity of matching fields
+- Believability
+    - Are the values trustworthy and plausible?
+    - With: % correct values by source trust tier, % of gold values that were overwritten by lower-confidence sources
+    - Without: % of records with high anomaly score or "unusual" combinations
+
