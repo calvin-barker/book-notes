@@ -478,3 +478,19 @@ F1 = 2 * (Precision * Recall) / (Precision + Recall)
     - With: % correct values by source trust tier, % of gold values that were overwritten by lower-confidence sources
     - Without: % of records with high anomaly score or "unusual" combinations
 
+### 3.4 General Data Cleaning Tasks
+
+*How effective is ML at interpolating missing data? Does it have any impact on outcomes?*
+
+Pros: improves match coverage, enables more confident matches, and reduces fals negatives.
+Cons: Can increase false positives, amplifies bias, and introduces error propagation.
+
+Research suggests that ML-based imputation (KNN, Random Forest, MICE) can boost recall in matching, but it may degrade precision unless the imputed field is not critical for final classification and is flagged as imputed and weighted accordingly.
+
+### 3.5 Data Pre-Processing for Data Matching
+
+#### 3.5.1 Removing Unwanted Characters and Tokens
+
+*What are popular libraries that perform data cleaning at scale? (specifically removing unwanted characters/tokens?)*
+
+Many spark built-ins, pandas, presidio, Datamations/dedupe.io, trifacta, OpenRefine.
